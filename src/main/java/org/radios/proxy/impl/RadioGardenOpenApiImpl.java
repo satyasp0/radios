@@ -1,10 +1,13 @@
 package org.radios.proxy.impl;
 
+import org.jetbrains.annotations.Nullable;
 import org.radios.dto.AllPlaceResponseDto;
 import org.radios.dto.firstclass.PlacesResponseDto;
 import org.radios.dto.PlaceDetailResponseDto;
 import org.radios.dto.fourthclass.RadiosDataDto;
 import org.radios.dto.secondclass.AllPlaceDataResponseDto;
+import org.radios.dto.secondclass.ChannelDataDto;
+import org.radios.dto.thirdclass.ChannelDetailResponseDto;
 import org.radios.proxy.RadioGardenOpenApi;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -45,6 +48,30 @@ public class RadioGardenOpenApiImpl implements RadioGardenOpenApi {
     @Override
     public RadiosDataDto getPlacesDetailByID(String placeId) {
         URI url = URI.create(SERVER+"/ara/content/page/"+placeId);
+        return getRadiosDataRestApi(url);
+    }
+
+    @Override
+    public RadiosDataDto getChannelByPlaceId(String placeId) {
+        URI url = URI.create(SERVER+"/ara/content/page/"+placeId+"/channels");
+        return getRadiosDataRestApi(url);
+    }
+
+    @Override
+    public ChannelDataDto getChannelDetailByID(String channelId) {
+        URI url = URI.create(SERVER+"/ara/content/channel/"+channelId);
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+        ResponseEntity<ChannelDetailResponseDto> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, ChannelDetailResponseDto.class);
+
+        return Optional.ofNullable(responseEntity.getBody())
+                .map(ChannelDetailResponseDto::getData)
+                .orElse(null);
+
+    }
+
+    @Nullable
+    private RadiosDataDto getRadiosDataRestApi(URI url) {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
         ResponseEntity<PlaceDetailResponseDto> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, PlaceDetailResponseDto.class);
