@@ -2,6 +2,7 @@ package org.radios.proxy;
 
 import org.radios.dto.firstclass.PlacesResponseDto;
 import org.radios.dto.fourthclass.RadiosDataDto;
+import org.radios.dto.secondclass.ChannelDataDto;
 
 import java.util.List;
 
@@ -13,7 +14,11 @@ public interface RadioGardenOpenApi {
 
     List<PlacesResponseDto> getAllPlaces();
 
-    RadiosDataDto getPlacesDetailByID(String id);
+    RadiosDataDto getPlacesDetailByID(String placeId);
+
+    RadiosDataDto getChannelByPlaceId(String placeId);
+
+    ChannelDataDto getChannelDetailByID(String channelId);
 
 
 }
