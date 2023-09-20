@@ -1,5 +1,6 @@
 package org.radios.dto.secondclass;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import org.radios.dto.firstclass.RadiosPageDto;
 @Data
 @SuperBuilder
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RadiosItemDto {
         @JsonProperty("href")
         private String href;
