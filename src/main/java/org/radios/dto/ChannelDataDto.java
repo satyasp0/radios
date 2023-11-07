@@ -1,10 +1,9 @@
-package org.radios.dto.secondclass;
+package org.radios.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.radios.dto.firstclass.RegionDto;
 
 /**
  * @author Satya
@@ -27,7 +26,7 @@ public class ChannelDataDto {
     @JsonProperty("secure")
     private Boolean secure;
     @JsonProperty("place")
-    private RegionDto place;
+    private RegionDataDto place;
     @JsonProperty("country")
-    private RegionDto country;
+    private RegionDataDto country;
 }

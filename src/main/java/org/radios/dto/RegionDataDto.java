@@ -1,4 +1,4 @@
-package org.radios.dto.firstclass;
+package org.radios.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -7,14 +7,14 @@ import lombok.experimental.SuperBuilder;
 
 /**
  * @author Satya
- * @created 8/24/2023 - 1:59 PM
+ * @created 02/09/2023 - 16:18
  **/
 @Data
 @SuperBuilder
 @NoArgsConstructor
-public class BaseResponseDto {
-    @JsonProperty("code")
-    private Integer code;
-    @JsonProperty("massage")
-    private String massage;
+public class RegionDataDto {
+    @JsonProperty("id")
+    private String id;
+    @JsonProperty("title")
+    private String title;
 }

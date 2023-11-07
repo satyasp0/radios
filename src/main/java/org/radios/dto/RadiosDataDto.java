@@ -1,10 +1,9 @@
-package org.radios.dto.fourthclass;
+package org.radios.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.radios.dto.thirdclass.RadiosContentDto;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.radios.dto.firstclass;
+package org.radios.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

@@ -1,10 +1,7 @@
 package org.radios.app;
 
 import org.radios.BaseHandler;
-import org.radios.dto.BaseResponseDto;
-import org.radios.dto.firstclass.PlacesResponseDto;
-import org.radios.dto.fourthclass.RadiosDataDto;
-import org.radios.dto.secondclass.ChannelDataDto;
+import org.radios.dto.*;
 import org.radios.proxy.RadioGardenOpenApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +33,7 @@ public class RadioGarden extends BaseHandler {
     @GetMapping(value = "/all")
     ResponseEntity<BaseResponseDto> getAllRadios(){
         try{
-            List<PlacesResponseDto> responseDto = radioGardenOpenApi.getAllPlaces();
+            List<PlaceDataDto> responseDto = radioGardenOpenApi.getAllPlaces();
             if(Objects.nonNull(responseDto)){
                 return send200(responseDto);
             }
@@ -80,6 +77,7 @@ public class RadioGarden extends BaseHandler {
         try {
             ChannelDataDto responseDto = radioGardenOpenApi.getChannelDetailByID(channelId);
             if(Objects.nonNull(responseDto)){
+                log.info("Success : {}", responseDto);
                 return send200(responseDto);
             }
             return send404();

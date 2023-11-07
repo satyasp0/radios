@@ -1,14 +1,8 @@
 package org.radios.proxy.impl;
 
-import org.jetbrains.annotations.Nullable;
-import org.radios.dto.AllPlaceResponseDto;
-import org.radios.dto.firstclass.PlacesResponseDto;
-import org.radios.dto.PlaceDetailResponseDto;
-import org.radios.dto.fourthclass.RadiosDataDto;
-import org.radios.dto.secondclass.AllPlaceDataResponseDto;
-import org.radios.dto.secondclass.ChannelDataDto;
-import org.radios.dto.thirdclass.ChannelDetailResponseDto;
+import org.radios.dto.*;
 import org.radios.proxy.RadioGardenOpenApi;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -29,55 +23,52 @@ public class RadioGardenOpenApiImpl implements RadioGardenOpenApi {
     private final RestTemplate restTemplate;
     private static final String SERVER = "https://radio.garden/api";
 
+    HttpEntity<String> requestEntity = new HttpEntity<>(new HttpHeaders());
+
     public RadioGardenOpenApiImpl() {
         this.restTemplate = new RestTemplate();
     }
     @Override
-    public List<PlacesResponseDto> getAllPlaces() {
+    public List<PlaceDataDto> getAllPlaces() {
         URI url = URI.create(SERVER+"/ara/content/places");
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
-        ResponseEntity<AllPlaceResponseDto> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, AllPlaceResponseDto.class);
+        ResponseEntity<BasicRadioGardenResponse<PlaceListResponseDto>> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, new ParameterizedTypeReference<>() {});
 
         return Optional.ofNullable(responseEntity.getBody())
-                .map(AllPlaceResponseDto::getData)
-                .map(AllPlaceDataResponseDto::getList)
+                .map(BasicRadioGardenResponse::getData)
+                .map(PlaceListResponseDto::getList)
                 .orElse(Collections.emptyList());
     }
 
     @Override
     public RadiosDataDto getPlacesDetailByID(String placeId) {
-        URI url = URI.create(SERVER+"/ara/content/page/"+placeId);
-        return getRadiosDataRestApi(url);
+        ResponseEntity<BasicRadioGardenResponse<RadiosDataDto>> responseEntity = restTemplate.exchange(URI.create(SERVER+"/ara/content/page/"+placeId), HttpMethod.GET, requestEntity, new ParameterizedTypeReference<>() {});
+
+        return Optional.ofNullable(responseEntity.getBody())
+                .map(BasicRadioGardenResponse::getData)
+                .orElse(null);
     }
 
     @Override
     public RadiosDataDto getChannelByPlaceId(String placeId) {
-        URI url = URI.create(SERVER+"/ara/content/page/"+placeId+"/channels");
-        return getRadiosDataRestApi(url);
+        ResponseEntity<BasicRadioGardenResponse<RadiosDataDto>> responseEntity = restTemplate.exchange(
+                URI.create(SERVER+"/ara/content/page/"+placeId+"/channels"),
+                HttpMethod.GET,
+                requestEntity,
+                new ParameterizedTypeReference<>() {}
+        );
+
+        return Optional.ofNullable(responseEntity.getBody())
+                .map(BasicRadioGardenResponse::getData)
+                .orElse(null);
     }
 
     @Override
     public ChannelDataDto getChannelDetailByID(String channelId) {
         URI url = URI.create(SERVER+"/ara/content/channel/"+channelId);
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
-        ResponseEntity<ChannelDetailResponseDto> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, ChannelDetailResponseDto.class);
+        ResponseEntity<BasicRadioGardenResponse<ChannelDataDto>> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, new ParameterizedTypeReference<>() {});
 
         return Optional.ofNullable(responseEntity.getBody())
-                .map(ChannelDetailResponseDto::getData)
-                .orElse(null);
-
-    }
-
-    @Nullable
-    private RadiosDataDto getRadiosDataRestApi(URI url) {
-        HttpHeaders headers = new HttpHeaders();
-        HttpEntity<String> requestEntity = new HttpEntity<>(headers);
-        ResponseEntity<PlaceDetailResponseDto> responseEntity = restTemplate.exchange(url, HttpMethod.GET, requestEntity, PlaceDetailResponseDto.class);
-
-        return Optional.ofNullable(responseEntity.getBody())
-                .map(PlaceDetailResponseDto::getData)
+                .map(BasicRadioGardenResponse::getData)
                 .orElse(null);
     }
 }
