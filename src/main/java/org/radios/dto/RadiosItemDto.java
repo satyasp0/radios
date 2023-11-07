@@ -1,11 +1,10 @@
-package org.radios.dto.secondclass;
+package org.radios.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.radios.dto.firstclass.RadiosPageDto;
 
 /**
  * @author Satya

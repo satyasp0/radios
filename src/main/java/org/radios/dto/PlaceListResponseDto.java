@@ -1,10 +1,9 @@
-package org.radios.dto.secondclass;
+package org.radios.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.radios.dto.firstclass.PlacesResponseDto;
 
 import java.util.List;
 
@@ -15,9 +14,9 @@ import java.util.List;
 @Data
 @SuperBuilder
 @NoArgsConstructor
-public class AllPlaceDataResponseDto {
+public class PlaceListResponseDto {
     @JsonProperty("list")
-    private List<PlacesResponseDto> list;
+    private List<PlaceDataDto> list;
     @JsonProperty("version")
     private String version;
 }

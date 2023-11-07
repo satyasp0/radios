@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.radios.dto.secondclass.AllPlaceDataResponseDto;
 
 /**
  * @author Satya
@@ -13,12 +12,11 @@ import org.radios.dto.secondclass.AllPlaceDataResponseDto;
 @Data
 @SuperBuilder
 @NoArgsConstructor
-public class AllPlaceResponseDto {
+public class BasicRadioGardenResponse<T> {
     @JsonProperty("apiVersion")
     private int apiVersion;
     @JsonProperty("version")
     private String version;
     @JsonProperty("data")
-    private AllPlaceDataResponseDto data;
-
+    private T data;
 }

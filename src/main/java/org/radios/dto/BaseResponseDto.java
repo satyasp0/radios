@@ -19,5 +19,4 @@ public class BaseResponseDto {
     private String message;
     @JsonProperty("data")
     private Object data;
-
 }

@@ -1,4 +1,4 @@
-package org.radios.dto.firstclass;
+package org.radios.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @SuperBuilder
 @NoArgsConstructor
-public class PlacesResponseDto {
+public class PlaceDataDto {
     @JsonProperty("size")
     private Integer size;
     @JsonProperty("id")

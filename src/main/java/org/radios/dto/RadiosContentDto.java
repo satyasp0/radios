@@ -1,7 +1,6 @@
-package org.radios.dto.thirdclass;
+package org.radios.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.radios.dto.secondclass.RadiosItemDto;
 
 import java.util.List;
 
