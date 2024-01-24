@@ -22,7 +22,7 @@ Welcome to my Radio Listening App, a Gradle-based Spring Boot application that a
 
 ## Usage
 
-Describe how to use the app.
+This repository is used as a backend side of my Radios-Frontend repository
 
 ## Contributing
 
